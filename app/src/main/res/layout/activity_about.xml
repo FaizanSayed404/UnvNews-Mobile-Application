@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarAbout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:title="About"
+        app:navigationIcon="@drawable/back_icon"
+        app:titleTextColor="@android:color/white"
+        android:background="@color/design_default_color_primary"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

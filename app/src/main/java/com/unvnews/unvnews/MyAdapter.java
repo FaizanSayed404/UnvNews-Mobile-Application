@@ -70,8 +70,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.Holder>
         ImageView img;
         public Holder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.textTitle);
-            img = itemView.findViewById(R.id.imageView);
+            title = itemView.findViewById(R.id.textViewTitle);
+            img = itemView.findViewById(R.id.imageViewThumbnail);
         }
     }
 }

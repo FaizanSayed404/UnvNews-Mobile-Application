@@ -18,4 +18,11 @@ public interface ApiInterface {
             @Query("category") String category,
             @Query("apiKey") String apiKey
     );
+
+    @GET("everything")
+    Call<News> getArticlesByQuery(
+            @Query("q") String query,
+            @Query("apiKey") String apiKey
+
+    );
 }
