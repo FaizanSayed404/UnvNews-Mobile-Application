@@ -38,23 +38,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.Holder>
 
         final String NewsUrl = list.get(position).getUrl();
 
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("URL", NewsUrl);
-                intent.setClass(context, BrowseWeb.class);
-                context.startActivity(intent);
-            }
+        holder.title.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("URL", NewsUrl);
+            intent.setClass(context, BrowseWeb.class);
+            context.startActivity(intent);
         });
-        holder.img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("URL", NewsUrl);
-                intent.setClass(context, BrowseWeb.class);
-                context.startActivity(intent);
-            }
+        holder.img.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("URL", NewsUrl);
+            intent.setClass(context, BrowseWeb.class);
+            context.startActivity(intent);
         });
 
 

@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -40,9 +39,8 @@ public class SearchActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
         recyclerView = findViewById(R.id.searchRecyclerView);
         toolbar = findViewById(R.id.toolbarSearch);
-        searchProgressBar = findViewById(R.id.searchprogressBar);
+        searchProgressBar = findViewById(R.id.searchProgressBar);
         toolbar.setNavigationOnClickListener(v -> finish());
-
         searchButton.setOnClickListener(v -> {
                 searchProgressBar.setVisibility(View.VISIBLE);
                 LoadSearchedNews();
