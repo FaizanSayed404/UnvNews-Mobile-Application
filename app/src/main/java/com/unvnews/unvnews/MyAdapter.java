@@ -36,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.Holder>
         holder.title.setText(list.get(position).getTitle());
         Glide.with(context)
                 .load(list.get(position).getUrlToImage())
-                .placeholder(R.drawable.news_logo)
+                .placeholder(R.drawable.news)
                 .into(holder.img);
 
         final String NewsUrl = list.get(position).getUrl();
