@@ -34,7 +34,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.Holder>
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.title.setText(list.get(position).getTitle());
-        Glide.with(context).load(list.get(position).getUrlToImage()).centerCrop().into(holder.img);
+        Glide.with(context)
+                .load(list.get(position).getUrlToImage())
+                .placeholder(R.drawable.news_logo)
+                .into(holder.img);
 
         final String NewsUrl = list.get(position).getUrl();
 
