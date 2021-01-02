@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightBgColor"
     tools:context=".SearchActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -17,7 +18,7 @@
         android:clickable="true"
         app:navigationIcon="@drawable/back_icon"
         app:titleTextColor="@android:color/white"
-        android:background="@color/design_default_color_primary"
+        android:background="@color/colorPrimary"
         android:focusable="true" />
 
     <EditText
@@ -28,7 +29,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Enter A Keyword"
-        android:textColorHint="@android:color/black"
+        android:textColor="@color/textColorDark"
+        android:textColorHint="#D6C9C9"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +45,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/custom_button"
         android:text="Search"
-        android:textColor="@android:color/white"
+        android:textColor="@color/lightBgColor"
         android:textAllCaps="false"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,12 +56,10 @@
         android:id="@+id/searchRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

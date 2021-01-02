@@ -43,6 +43,7 @@ public class SearchAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.textView.setText(articles.get(position).getTitle());
         Glide.with(context)
                 .load(articles.get(position).getUrlToImage())
+                .placeholder(R.drawable.news)
                 .into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override

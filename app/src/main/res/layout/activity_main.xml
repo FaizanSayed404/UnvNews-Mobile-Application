@@ -1,48 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/materialToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            app:menu="@menu/toolbar_menu">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UNV NEWS"
-                android:gravity="center"
-                android:textSize="45sp"
-                android:textStyle="normal"
-                android:fontFamily="@font/neuterous"
-                android:textColor="#FFFFFF"/>
-        </com.google.android.material.appbar.MaterialToolbar>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            app:tabMode="scrollable"
-            app:tabIndicatorHeight="5dp"
-            app:tabIndicatorFullWidth="true"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabSelectedTextColor="#FFEB3B" />
-    </com.google.android.material.appbar.AppBarLayout>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar" />
-</RelativeLayout>
+        android:background="@color/lightBgColor">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:navigationIcon="@drawable/icon_menu"
+                app:menu="@menu/toolbar_menu">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UNV NEWS"
+                    android:gravity="center"
+                    android:textSize="35sp"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/neuterous"
+                    android:textColor="#FFFFFF"/>
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                app:tabMode="scrollable"
+                app:tabIndicatorHeight="5dp"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabSelectedTextColor="#FFEB3B" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar" />
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/Category_NavView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/navigation_menu"
+        app:itemTextColor="@android:color/white"
+        app:headerLayout="@layout/nav_menu_header"
+        android:background="@color/colorPrimary"/>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

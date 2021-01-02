@@ -3,14 +3,25 @@ package com.unvnews.unvnews;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import timber.log.Timber;
@@ -22,16 +33,45 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Date todayDate = Calendar.getInstance().getTime();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String todayString = formatter.format(todayDate);
+        Toast.makeText(this, todayString, Toast.LENGTH_SHORT).show();
+
         ViewPager viewPager = findViewById(R.id.pager);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         MaterialToolbar toolbar = findViewById(R.id.materialToolbar);
         setupViewPager(viewPager);
+        NavigationView navigationView = findViewById(R.id.Category_NavView);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+
+               if (item.getItemId() == item.getItemId())
+               {
+                   Intent intent = new Intent(MainActivity.this,CategoryPage.class);
+                   intent.putExtra("TITLE",item.getTitle());
+                   startActivity(intent);
+                   drawerLayout.closeDrawer(GravityCompat.START);
+               }
+
+
+                return true;
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
         toolbar.setOnMenuItemClickListener(item -> {
             Intent intent = new Intent();
             switch (item.getItemId())
             {
-                case R.id.toolbarSettings:
+                case R.id.toolbarSearch:
                     intent.setClass(MainActivity.this,SearchActivity.class);
                     startActivity(intent);
                     break;
@@ -46,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager)
     {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ShowNews(),"Top Headlines");
-        adapter.addFragment(new SportsFragment(),"Sports");
-        adapter.addFragment(new EntertainmentFragment(),"Entertainment");
-        adapter.addFragment(new TechnologyFragment(),"Technology");
-        adapter.addFragment(new HealthFragment(),"Health");
-        adapter.addFragment(new BusinessFragment(),"Business");
-        adapter.addFragment(new ScienceFragment(),"Science");
+        adapter.addFragment(new ShowNews(),"Today's Updates");
+        adapter.addFragment(new SportsFragment(),"This Week");
+//        adapter.addFragment(new EntertainmentFragment(),"Entertainment");
+//        adapter.addFragment(new TechnologyFragment(),"Technology");
+//        adapter.addFragment(new HealthFragment(),"Health");
+//        adapter.addFragment(new BusinessFragment(),"Business");
+//        adapter.addFragment(new ScienceFragment(),"Science");
         viewPager.setAdapter(adapter);
     }
 
