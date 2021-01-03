@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Date todayDate = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(todayDate);
-        Toast.makeText(this, todayString, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Today's Date "+todayString, Toast.LENGTH_LONG).show();
 
         ViewPager viewPager = findViewById(R.id.pager);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -88,11 +88,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ShowNews(),"Today's Updates");
         adapter.addFragment(new SportsFragment(),"This Week");
-//        adapter.addFragment(new EntertainmentFragment(),"Entertainment");
-//        adapter.addFragment(new TechnologyFragment(),"Technology");
-//        adapter.addFragment(new HealthFragment(),"Health");
-//        adapter.addFragment(new BusinessFragment(),"Business");
-//        adapter.addFragment(new ScienceFragment(),"Science");
         viewPager.setAdapter(adapter);
     }
 
