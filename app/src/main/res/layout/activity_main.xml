@@ -32,7 +32,7 @@
                     android:textSize="35sp"
                     android:textStyle="normal"
                     android:fontFamily="@font/neuterous"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="@color/textColorDark"/>
             </com.google.android.material.appbar.MaterialToolbar>
 
             <com.google.android.material.tabs.TabLayout
@@ -61,7 +61,5 @@
         app:itemTextColor="@android:color/white"
         app:headerLayout="@layout/nav_menu_header"
         android:background="@color/colorPrimary"/>
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
