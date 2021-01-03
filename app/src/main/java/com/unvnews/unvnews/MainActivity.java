@@ -51,10 +51,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
 
-               if (item.getItemId() == item.getItemId())
+               if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About"))
                {
                    Intent intent = new Intent(MainActivity.this,CategoryPage.class);
                    intent.putExtra("TITLE",item.getTitle());
+                   startActivity(intent);
+                   drawerLayout.closeDrawer(GravityCompat.START);
+               }
+               else
+               {
+                   Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                    startActivity(intent);
                    drawerLayout.closeDrawer(GravityCompat.START);
                }
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ShowNews(),"Today's Updates");
-        adapter.addFragment(new SportsFragment(),"This Week");
+//        adapter.addFragment(new SportsFragment(),"This Week");
         viewPager.setAdapter(adapter);
     }
 

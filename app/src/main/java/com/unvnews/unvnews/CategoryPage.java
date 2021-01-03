@@ -1,14 +1,13 @@
 package com.unvnews.unvnews;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -30,19 +29,16 @@ public class CategoryPage extends AppCompatActivity {
     public String BASE_URL = "https://newsapi.org/v2/";
     public String API_KEY = "87ceb7c136aa462eaf4a1b206ff162e6";
     public String COUNTRY = "in";
-    TextView textViewTitle;
     MaterialToolbar materialToolbar;
     List<Articles> articles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
-//        textViewTitle = findViewById(R.id.catHeaderTextView);
         Bundle extra = getIntent().getExtras();
         String title = extra.getString("TITLE");
         articles = new ArrayList<>();
         materialToolbar = findViewById(R.id.materialToolbarCategory);
-//        textViewTitle.setText(title);
         recyclerView = findViewById(R.id.category_recView);
         materialToolbar.setTitle(title);
         materialToolbar.setNavigationOnClickListener(v -> {

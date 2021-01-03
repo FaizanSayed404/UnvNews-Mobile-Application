@@ -1,7 +1,5 @@
 package com.unvnews.unvnews;
 
-import java.util.Date;
-
 public class Articles {
 
  private String title;

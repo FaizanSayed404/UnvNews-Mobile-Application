@@ -2,9 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuTopHeadlines"
-        android:title="Top Headlines" />
-    <item
         android:id="@+id/menuSports"
         android:title="Sports" />
     <item
@@ -22,4 +19,7 @@
     <item
         android:id="@+id/menuScience"
         android:title="Science" />
+    <item
+        android:id="@+id/menuAbout"
+        android:title="About" />
 </menu>

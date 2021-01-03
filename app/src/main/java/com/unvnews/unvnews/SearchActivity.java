@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchActivity extends AppCompatActivity {
     MaterialToolbar toolbar;
     RecyclerView recyclerView;
-    SearchAdapter searchAdapter;
+    MyAdapter adapter;
     List<Articles> articles = new ArrayList<>();
     Retrofit retrofit;
     EditText searchEditText;
@@ -58,15 +60,15 @@ public class SearchActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<News>() {
             @Override
-            public void onResponse(Call<News> call, Response<News> response) {
+            public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
                 searchProgressBar.setVisibility(View.INVISIBLE);
                 if(response.body() != null)
                 {
                     searchProgressBar.setVisibility(View.GONE);
                     articles = response.body().getArticles();
-                    searchAdapter = new SearchAdapter(SearchActivity.this,articles);
-                    recyclerView.setAdapter(searchAdapter);
-                    searchAdapter.notifyDataSetChanged();
+                    adapter = new MyAdapter(SearchActivity.this,articles);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

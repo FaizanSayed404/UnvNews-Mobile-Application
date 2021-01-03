@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 
 public class SplashScreen extends AppCompatActivity {
-    private static int SPLASH_SCREEN_TIME_OUT=2000;
     LottieAnimationView animationView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +23,7 @@ public class SplashScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         animationView.playAnimation();
+        int SPLASH_SCREEN_TIME_OUT = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
