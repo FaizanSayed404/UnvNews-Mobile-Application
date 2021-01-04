@@ -3,7 +3,10 @@ package com.unvnews.unvnews;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,18 +35,11 @@ import java.util.Objects;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Date todayDate = Calendar.getInstance().getTime();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String todayString = formatter.format(todayDate);
-        Toast.makeText(this, "Today's Date "+todayString, Toast.LENGTH_LONG).show();
-
         ViewPager viewPager = findViewById(R.id.pager);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         MaterialToolbar toolbar = findViewById(R.id.materialToolbar);
@@ -46,28 +47,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.Category_NavView);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+        navigationView.setNavigationItemSelectedListener(item -> {
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-
-               if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About"))
-               {
-                   Intent intent = new Intent(MainActivity.this,CategoryPage.class);
-                   intent.putExtra("TITLE",item.getTitle());
-                   startActivity(intent);
-                   drawerLayout.closeDrawer(GravityCompat.START);
-               }
-               else
-               {
-                   Intent intent = new Intent(MainActivity.this,AboutActivity.class);
-                   startActivity(intent);
-                   drawerLayout.closeDrawer(GravityCompat.START);
-               }
-
-
-                return true;
-            }
+           if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About"))
+           {
+               Intent intent = new Intent(MainActivity.this,CategoryPage.class);
+               intent.putExtra("TITLE",item.getTitle());
+               startActivity(intent);
+               drawerLayout.closeDrawer(GravityCompat.START);
+           }
+           else
+           {
+               Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+               startActivity(intent);
+               drawerLayout.closeDrawer(GravityCompat.START);
+           }
+            return true;
         });
 
         toolbar.setNavigationOnClickListener(v -> {
@@ -92,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager)
     {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ShowNews(),"Today's Updates");
+        adapter.addFragment(new ShowNews(),"Top Headlines");
 //        adapter.addFragment(new SportsFragment(),"This Week");
         viewPager.setAdapter(adapter);
     }

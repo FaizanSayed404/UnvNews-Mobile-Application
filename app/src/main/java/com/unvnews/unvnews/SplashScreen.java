@@ -3,7 +3,7 @@ package com.unvnews.unvnews;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.WindowManager;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,24 +16,18 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
         animationView = findViewById(R.id.splash_animation);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+//                        View.SYSTEM_UI_FLAG_FULLSCREEN|
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
         animationView.playAnimation();
         int SPLASH_SCREEN_TIME_OUT = 2000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i=new Intent(SplashScreen.this,
-                        MainActivity.class);
-
-                startActivity(i);
-
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent i=new Intent(SplashScreen.this,
+                    MainActivity.class);
+            startActivity(i);
+            finish();
         }, SPLASH_SCREEN_TIME_OUT);
 
     }

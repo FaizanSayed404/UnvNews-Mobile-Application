@@ -5,13 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,19 +51,19 @@ public class ShowNews extends Fragment {
         return view;
     }
     private void load_data() {
-        News news = new News();
+        Models models = new Models();
         retrofit = new Retrofit.Builder()
-                .baseUrl(news.BASE_URL)
+                .baseUrl(models.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
-        Call<News> call = apiInterface.getArticle(news.COUNTRY,news.API_KEY);
+        Call<News> call = apiInterface.getArticle(models.getCOUNTRY(), models.getAPI_KEY());
 
         call.enqueue(new Callback<News>() {
             @Override
-            public void onResponse(Call<News> call, Response<News> response) {
+            public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
 
                 if (response.body() != null)
                 {
@@ -66,7 +77,7 @@ public class ShowNews extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<News> call, Throwable t) {
+            public void onFailure(@NotNull Call<News> call, @NotNull Throwable t) {
 
             }
         });

@@ -32,7 +32,7 @@ public class SearchActivity extends AppCompatActivity {
     Button searchButton;
     String query;
     ProgressBar searchProgressBar;
-    News news = new News();
+    Models models = new Models();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +52,11 @@ public class SearchActivity extends AppCompatActivity {
     void LoadSearchedNews(){
         query = searchEditText.getText().toString();
         retrofit = new Retrofit.Builder()
-                .baseUrl(news.BASE_URL)
+                .baseUrl(models.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<News> call = apiInterface.getArticlesByQuery(query, news.API_KEY);
+        Call<News> call = apiInterface.getArticlesByQuery(query, models.getAPI_KEY());
 
         call.enqueue(new Callback<News>() {
             @Override

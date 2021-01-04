@@ -41,15 +41,15 @@ public class SportsFragment extends Fragment {
         return view;
     }
     private void load_data() {
-        News news = new News();
+        Models models = new Models();
         retrofit = new Retrofit.Builder()
-                .baseUrl(news.BASE_URL)
+                .baseUrl(models.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
-        Call<News> call = apiInterface.getArticleByCategory(news.COUNTRY,"sports",news.API_KEY);
+        Call<News> call = apiInterface.getArticleByCategory(models.getCOUNTRY(),"sports",models.getAPI_KEY());
 
         call.enqueue(new Callback<News>() {
             @Override

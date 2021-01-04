@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "431168481153",
+    "firebase_url": "https://fir-news-app-97fec.firebaseio.com",
+    "project_id": "fir-news-app-97fec",
+    "storage_bucket": "fir-news-app-97fec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431168481153:android:4ad0ed43d33074a9e8ea80",
+        "android_client_info": {
+          "package_name": "com.umair.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431168481153-5bllhj9plq9vamfk6hcsvvc9ui2ochg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umair.firebasetest",
+            "certificate_hash": "e9034a95e7077151bda1a8ff39d18400c8cb19a2"
+          }
+        },
+        {
+          "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVAKt8JxKd96g1BrniQQLP0thKZVD1EvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431168481153:android:57c3c477e6611e48e8ea80",
+        "android_client_info": {
+          "package_name": "com.umair.navigationdrawer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVAKt8JxKd96g1BrniQQLP0thKZVD1EvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431168481153:android:0381b410a9de7f58e8ea80",
+        "android_client_info": {
+          "package_name": "com.unvnews.unvnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVAKt8JxKd96g1BrniQQLP0thKZVD1EvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431168481153-30g3dl4apa2fag5bvja069kjne1cm8pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

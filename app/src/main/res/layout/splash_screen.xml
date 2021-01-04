@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightBgColor">
@@ -12,15 +13,12 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/splash_animation" />
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="90sp"
         android:layout_below="@+id/splash_animation"
-        android:textColor="@color/textColorDark"
-        android:text="UNVNEWS"
-        android:letterSpacing="0.2"
+        android:src="@drawable/unvlogo"
         android:textStyle="bold"
-        android:fontFamily="@font/neuterous"
         android:layout_centerHorizontal="true"
-        android:textSize="50sp"/>
+        tools:ignore="ContentDescription" />
 </RelativeLayout>
