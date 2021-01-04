@@ -10,12 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,7 @@ import java.util.Objects;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
+    AlertDialog alertDialog;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,4 +132,18 @@ public class MainActivity extends AppCompatActivity {
         return dir.delete();
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are You Sure You Want to Exit")
+                .setTitle("Exit")
+                .setCancelable(true)
+                .setPositiveButton("Yes",(dialog, which) -> {
+                    this.finish();
+                }).setNegativeButton("No",(dialog, which) -> {
+                    dialog.cancel();
+        });
+        alertDialog = builder.create();
+        alertDialog.show();
     }
+}
