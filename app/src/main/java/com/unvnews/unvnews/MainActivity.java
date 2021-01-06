@@ -2,68 +2,111 @@ package com.unvnews.unvnews;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog;
+    AlertDialog.Builder builder;
+    RecyclerView recyclerView;
+    MyAdapter adapter;
+    List<Articles> articles;
+    Retrofit retrofit;
+    Models models = new Models();
+    ProgressBar progressBar;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ViewPager viewPager = findViewById(R.id.pager);
+        progressBar = findViewById(R.id.home_progressBar);
+        recyclerView = findViewById(R.id.homeRecyclerView);
+        progressBar.setVisibility(View.VISIBLE);
+        articles = new ArrayList<>();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(models.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+        Call<News> call = apiInterface.getArticle(models.getCOUNTRY(),models.getAPI_KEY());
+
+        call.enqueue(new Callback<News>() {
+            @Override
+            public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
+                if (response.body() != null) {
+                    articles = response.body().getArticles();
+                    adapter = new MyAdapter(MainActivity.this,articles);
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<News> call, Throwable t) {
+
+            }
+        });
+
+
+        builder = new AlertDialog.Builder(this,R.style.MyDialogTheme);
+        builder.setMessage("Are You Sure You Want to Exit")
+                .setTitle("Exit")
+                .setCancelable(true)
+                .setPositiveButton("Yes",(dialog, which) -> {
+                    this.finish();
+                }).setNegativeButton("No",(dialog, which) -> {
+            dialog.cancel();
+        });
+        alertDialog = builder.create();
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         MaterialToolbar toolbar = findViewById(R.id.materialToolbar);
-        setupViewPager(viewPager);
         NavigationView navigationView = findViewById(R.id.Category_NavView);
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
         navigationView.setNavigationItemSelectedListener(item -> {
 
-           if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About"))
+           if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About") && !item.getTitle().equals("Exit"))
            {
                Intent intent = new Intent(MainActivity.this,CategoryPage.class);
                intent.putExtra("TITLE",item.getTitle());
                startActivity(intent);
                drawerLayout.closeDrawer(GravityCompat.START);
            }
-           else
+           else if (item.getItemId()==item.getItemId() && !item.getTitle().equals("Exit"))
            {
                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                startActivity(intent);
                drawerLayout.closeDrawer(GravityCompat.START);
+           }
+           else{
+               alertDialog.show();
            }
             return true;
         });
@@ -86,13 +129,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-    }
-    private void setupViewPager(ViewPager viewPager)
-    {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ShowNews(),"Top Headlines");
-//        adapter.addFragment(new SportsFragment(),"This Week");
-        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -134,16 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are You Sure You Want to Exit")
-                .setTitle("Exit")
-                .setCancelable(true)
-                .setPositiveButton("Yes",(dialog, which) -> {
-                    this.finish();
-                }).setNegativeButton("No",(dialog, which) -> {
-                    dialog.cancel();
-        });
-        alertDialog = builder.create();
         alertDialog.show();
     }
 }

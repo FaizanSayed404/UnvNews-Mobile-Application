@@ -35,30 +35,32 @@
                     tools:ignore="HardcodedText" />
             </com.google.android.material.appbar.MaterialToolbar>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="40sp"
-                app:tabMode="scrollable"
-                app:tabIndicatorHeight="5dp"
-                app:tabIndicatorFullWidth="true"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabSelectedTextColor="@color/colorAccent" />
         </com.google.android.material.appbar.AppBarLayout>
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar" />
+            android:layout_below="@id/appbar"/>
+
+        <ProgressBar
+            android:id="@+id/home_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/Category_NavView"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_menu"
-        app:itemTextColor="@android:color/white"
+        app:itemTextColor="@color/colorAccent"
+        app:itemIconTint="@color/colorAccent"
         app:headerLayout="@layout/nav_menu_header"
         android:background="@color/colorPrimary"/>
 

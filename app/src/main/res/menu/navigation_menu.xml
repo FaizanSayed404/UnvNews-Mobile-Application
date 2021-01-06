@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="HardcodedText">
 
-    <item
-        android:id="@+id/menuSports"
-        android:title="Sports" />
-    <item
-        android:id="@+id/menuEntertainment"
-        android:title="Entertainment" />
-    <item
-        android:id="@+id/menuTechnology"
-        android:title="Technology" />
-    <item
-        android:id="@+id/menuHealth"
-        android:title="Health" />
-    <item
-        android:id="@+id/menuBusiness"
-        android:title="Business" />
-    <item
-        android:id="@+id/menuScience"
-        android:title="Science" />
-    <item
-        android:id="@+id/menuAbout"
-        android:title="About" />
+        <item
+            android:id="@+id/menuSports"
+            android:icon="@drawable/sports"
+            android:title="Sports" />
+        <item
+            android:id="@+id/menuEntertainment"
+            android:icon="@drawable/entertainment"
+            android:title="Entertainment" />
+        <item
+            android:id="@+id/menuTechnology"
+            android:title="Technology"
+            android:icon="@drawable/technology"/>
+        <item
+            android:id="@+id/menuHealth"
+            android:icon="@drawable/health"
+            android:title="Health" />
+        <item
+            android:id="@+id/menuBusiness"
+            android:icon="@drawable/business"
+            android:title="Business" />
+        <item
+            android:id="@+id/menuScience"
+            android:icon="@drawable/science"
+            android:title="Science" />
+        <item
+            android:id="@+id/menuAbout"
+            android:icon="@drawable/about"
+            android:title="About" />
+        <item
+            android:id="@+id/menuExit"
+            android:icon="@drawable/exit"
+            android:title="Exit" />
+
 </menu>
