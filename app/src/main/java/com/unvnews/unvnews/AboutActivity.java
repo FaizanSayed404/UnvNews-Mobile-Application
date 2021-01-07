@@ -5,14 +5,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.unvnews.unvnews.databinding.ActivityAboutBinding;
 
 public class AboutActivity extends AppCompatActivity {
-    MaterialToolbar toolbar;
+    ActivityAboutBinding aboutBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        toolbar = findViewById(R.id.toolbarAbout);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        aboutBinding = ActivityAboutBinding.inflate(getLayoutInflater());
+        setContentView(aboutBinding.getRoot());
+        aboutBinding.toolbarAbout.setNavigationOnClickListener(v -> finish());
     }
 }

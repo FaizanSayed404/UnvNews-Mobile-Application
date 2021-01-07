@@ -1,5 +1,6 @@
 package com.unvnews.unvnews;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.unvnews.unvnews.databinding.ActivitySearchBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,34 +25,26 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchActivity extends AppCompatActivity {
-    MaterialToolbar toolbar;
-    RecyclerView recyclerView;
+    ActivitySearchBinding binding;
     MyAdapter adapter;
     List<Articles> articles = new ArrayList<>();
     Retrofit retrofit;
-    EditText searchEditText;
-    Button searchButton;
     String query;
-    ProgressBar searchProgressBar;
     Models models = new Models();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        searchEditText = findViewById(R.id.searchEditText);
-        searchButton = findViewById(R.id.searchButton);
-        recyclerView = findViewById(R.id.searchRecyclerView);
-        toolbar = findViewById(R.id.toolbarSearch);
-        searchProgressBar = findViewById(R.id.searchProgressBar);
-        toolbar.setNavigationOnClickListener(v -> finish());
-        searchButton.setOnClickListener(v -> {
-                searchProgressBar.setVisibility(View.VISIBLE);
+        binding = ActivitySearchBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.toolbarSearch.setNavigationOnClickListener(v -> finish());
+        binding.searchButton.setOnClickListener(v -> {
+                binding.searchProgressBar.setVisibility(View.VISIBLE);
                 LoadSearchedNews();
         });
     }
 
     void LoadSearchedNews(){
-        query = searchEditText.getText().toString();
+        query = binding.searchEditText.getText().toString();
         retrofit = new Retrofit.Builder()
                 .baseUrl(models.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -61,13 +55,12 @@ public class SearchActivity extends AppCompatActivity {
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
-                searchProgressBar.setVisibility(View.INVISIBLE);
                 if(response.body() != null)
                 {
-                    searchProgressBar.setVisibility(View.GONE);
                     articles = response.body().getArticles();
                     adapter = new MyAdapter(SearchActivity.this,articles);
-                    recyclerView.setAdapter(adapter);
+                    binding.searchRecyclerView.setAdapter(adapter);
+                    binding.searchProgressBar.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
                 }
             }

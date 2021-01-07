@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.unvnews.unvnews.databinding.ActivityCategoryPageBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,26 +27,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoryPage extends AppCompatActivity {
+    ActivityCategoryPageBinding binding;
     Retrofit retrofit;
-    RecyclerView recyclerView;
     MyAdapter adapter;
-    MaterialToolbar materialToolbar;
     List<Articles> articles;
     Models models = new Models();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_page);
+        binding = ActivityCategoryPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Bundle extra = getIntent().getExtras();
         String title = extra.getString("TITLE");
         articles = new ArrayList<>();
-        materialToolbar = findViewById(R.id.materialToolbarCategory);
-        recyclerView = findViewById(R.id.category_recView);
-        materialToolbar.setTitle(title);
-        materialToolbar.setNavigationOnClickListener(v -> {
+        binding.categoryProgressBar.setVisibility(View.VISIBLE);
+        binding.materialToolbarCategory.setTitle(title);
+        binding.materialToolbarCategory.setNavigationOnClickListener(v -> {
             finish();
         });
-        materialToolbar.setOnMenuItemClickListener(item -> {
+        binding.materialToolbarCategory.setOnMenuItemClickListener(item -> {
             Intent intent = null;
            if (item.getItemId() == R.id.toolbarAbout)
            {
@@ -100,7 +102,8 @@ public class CategoryPage extends AppCompatActivity {
                     articles = response.body().getArticles();
                 }
                 adapter = new MyAdapter(CategoryPage.this,articles);
-                recyclerView.setAdapter(adapter);
+                binding.categoryRecView.setAdapter(adapter);
+                binding.categoryProgressBar.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
             }
 

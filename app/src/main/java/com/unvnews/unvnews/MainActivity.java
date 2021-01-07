@@ -2,21 +2,17 @@ package com.unvnews.unvnews;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
+import com.unvnews.unvnews.databinding.ActivityMainBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,22 +29,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
     AlertDialog alertDialog;
     AlertDialog.Builder builder;
-    RecyclerView recyclerView;
     MyAdapter adapter;
     List<Articles> articles;
     Retrofit retrofit;
     Models models = new Models();
-    ProgressBar progressBar;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        progressBar = findViewById(R.id.home_progressBar);
-        recyclerView = findViewById(R.id.homeRecyclerView);
-        progressBar.setVisibility(View.VISIBLE);
+        super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.homeProgressBar.bringToFront();
+        binding.homeProgressBar.setVisibility(View.VISIBLE);
         articles = new ArrayList<>();
         retrofit = new Retrofit.Builder()
                 .baseUrl(models.getBASE_URL())
@@ -64,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     articles = response.body().getArticles();
                     adapter = new MyAdapter(MainActivity.this,articles);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.INVISIBLE);
+                    binding.homeRecyclerView.setAdapter(adapter);
+                    binding.homeProgressBar.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<News> call, Throwable t) {
+            public void onFailure(@NotNull Call<News> call, @NotNull Throwable t) {
 
             }
         });
@@ -89,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog = builder.create();
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         MaterialToolbar toolbar = findViewById(R.id.materialToolbar);
-        NavigationView navigationView = findViewById(R.id.Category_NavView);
+        NavigationView navigationView = findViewById(R.id.home_navView);
         navigationView.setNavigationItemSelectedListener(item -> {
 
            if (item.getItemId() == item.getItemId() && !item.getTitle().equals("About") && !item.getTitle().equals("Exit"))

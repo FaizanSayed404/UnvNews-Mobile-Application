@@ -6,30 +6,30 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.unvnews.unvnews.databinding.WebViewBinding;
+
 import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
 
 public class BrowseWeb extends AppCompatActivity {
-    AdblockWebView adblockWebView;
+    WebViewBinding webViewBinding;
     String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_view);
-        Bundle extra = getIntent().getExtras();
-        assert extra != null;
-        url = extra.getString("URL");
-        adblockWebView = findViewById(R.id.web_view);
-        adblockWebView.setWebViewClient(new WebViewClient());
-        adblockWebView.loadUrl(url);
-        WebSettings webSettings = adblockWebView.getSettings();
+        webViewBinding = WebViewBinding.inflate(getLayoutInflater());
+        setContentView(webViewBinding.getRoot());
+        url = getIntent().getExtras().getString("URL");
+        webViewBinding.webView.setWebViewClient(new WebViewClient());
+        webViewBinding.webView.loadUrl(url);
+        WebSettings webSettings = webViewBinding.webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
     }
 
     @Override
     public void onBackPressed() {
-        if (adblockWebView.canGoBack())
+        if (webViewBinding.webView.canGoBack())
         {
-            adblockWebView.goBack();
+            webViewBinding.webView.goBack();
         }
         else
         {
