@@ -2,15 +2,22 @@ package com.unvnews.unvnews;
 
 public class Models {
 
+    String apikey = "87ceb7c136aa462eaf4a1b206ff162e6";
+
+    String country = "in";
+
+    String base_url = "https://newsapi.org/v2/";
+
+
     public String getBASE_URL() {
-        return "https://newsapi.org/v2/";
+        return base_url;
     }
 
     public String getCOUNTRY() {
-        return "in";
+        return country;
     }
 
     public String getAPI_KEY() {
-        return "bc20278d342b4f8b8398f08df743c1ed";
+        return apikey;
     }
 }

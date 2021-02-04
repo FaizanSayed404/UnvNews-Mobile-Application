@@ -1,5 +1,6 @@
 package com.unvnews.unvnews;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
@@ -8,11 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.unvnews.unvnews.databinding.WebViewBinding;
 
-import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
-
 public class BrowseWeb extends AppCompatActivity {
     WebViewBinding webViewBinding;
     String url;
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

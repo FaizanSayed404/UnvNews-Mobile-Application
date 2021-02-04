@@ -25,8 +25,4 @@ public interface ApiInterface {
             @Query("apiKey") String apiKey
 
     );
-
-    @GET("everything")
-    Call<News> getArticlesByDate(
-    );
 }

@@ -2,13 +2,13 @@ package com.unvnews.unvnews;
 
 public class Articles {
 
- private String title;
+    private String title;
 
- private String url;
+    private String url;
 
- private String urlToImage;
+    private String urlToImage;
 
- private String publishedAt;
+    private String publishedAt;
 
     public String getPublishedAt() {
         return publishedAt;
