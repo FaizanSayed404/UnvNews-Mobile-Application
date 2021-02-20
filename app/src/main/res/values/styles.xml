@@ -13,12 +13,12 @@
     <style name="CollapsingToolbarExpanded" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textSize">50sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColorDark</item>
     </style>
 
     <style name="CollapsingToolbarExpandedCategory" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textSize">50sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColorDark</item>
     </style>
 </resources>

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +25,6 @@ public class CategoryPage extends AppCompatActivity {
     Retrofit retrofit;
     MyAdapter adapter;
     List<Articles> articles;
-    Models models = new Models();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class CategoryPage extends AppCompatActivity {
             Intent intent = new Intent();
             if (item.getItemId() == R.id.toolbarAbout) {
                 intent.setClass(CategoryPage.this, AboutActivity.class);
-                Toast.makeText(CategoryPage.this, "Hello", Toast.LENGTH_SHORT).show();
             } else {
                 intent.setClass(CategoryPage.this, SearchActivity.class);
             }
@@ -51,7 +48,7 @@ public class CategoryPage extends AppCompatActivity {
             return true;
         });
         retrofit = new Retrofit.Builder()
-                .baseUrl(models.getBASE_URL())
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -61,31 +58,31 @@ public class CategoryPage extends AppCompatActivity {
 
         switch (title) {
             case "Top Headlines":
-                call = apiInterface.getArticle(models.getCOUNTRY(), models.getAPI_KEY());
+                call = apiInterface.getArticle(Constants.COUNTRY, Constants.API_KEY);
                 break;
 
             case "Sports":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "sports", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "sports", Constants.API_KEY);
                 break;
 
             case "Entertainment":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "entertainment", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "entertainment", Constants.API_KEY);
                 break;
 
             case "Technology":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "technology", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "technology", Constants.API_KEY);
                 break;
 
             case "Health":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "health", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "health", Constants.API_KEY);
                 break;
 
             case "Business":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "business", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "business", Constants.API_KEY);
                 break;
 
             case "Science":
-                call = apiInterface.getArticleByCategory(models.getCOUNTRY(), "science", models.getAPI_KEY());
+                call = apiInterface.getArticleByCategory(Constants.COUNTRY, "science", Constants.API_KEY);
                 break;
 
             default:

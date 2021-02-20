@@ -2,6 +2,7 @@ package com.unvnews.unvnews;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +27,6 @@ public class SearchActivity extends AppCompatActivity {
     List<Articles> articles = new ArrayList<>();
     Retrofit retrofit;
     String query;
-    Models models = new Models();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +36,35 @@ public class SearchActivity extends AppCompatActivity {
         binding.toolbarSearch.setNavigationOnClickListener(v -> finish());
         binding.searchButton.setOnClickListener(v -> {
             query = binding.searchEditText.getText().toString();
-            if (query.equals("")) {
-                Snackbar snackbar = Snackbar.make(binding.searchRecyclerView, "Text field cannot be empty",
-                        BaseTransientBottomBar.LENGTH_SHORT);
-                snackbar.show();
-            } else {
-                binding.searchProgressBar.setVisibility(View.VISIBLE);
-                LoadSearchedNews();
+            searchNews();
+        });
+        binding.searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                query = binding.searchEditText.getText().toString();
+                searchNews();
             }
+            return true;
         });
     }
 
-    void LoadSearchedNews() {
+    private void searchNews() {
+        if (query.isEmpty()) {
+            Snackbar snackbar = Snackbar.make(binding.searchRecyclerView, "Text field cannot be empty",
+                    BaseTransientBottomBar.LENGTH_SHORT);
+            snackbar.show();
+        } else {
+            binding.searchProgressBar.setVisibility(View.VISIBLE);
+            LoadSearchedNews(query);
+        }
+    }
+
+    void LoadSearchedNews(String query) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(models.getBASE_URL())
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<News> call = apiInterface.getArticlesByQuery(query, models.getAPI_KEY());
+        Call<News> call = apiInterface.getArticlesByQuery(query, Constants.API_KEY);
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {

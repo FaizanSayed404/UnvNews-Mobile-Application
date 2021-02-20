@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter adapter;
     List<Articles> articles;
     Retrofit retrofit;
-    Models models = new Models();
-    List<Models> modelsList;
+    List<Constants> constantsList;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        modelsList = new ArrayList<>();
+        constantsList = new ArrayList<>();
         binding.homeProgressBar.bringToFront();
         binding.homeProgressBar.setVisibility(View.VISIBLE);
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -49,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
         articles = new ArrayList<>();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(models.getBASE_URL())
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<News> call = apiInterface.getArticle(models.getCOUNTRY(), models.getAPI_KEY());
+        Call<News> call = apiInterface.getArticle(Constants.COUNTRY, Constants.API_KEY);
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
