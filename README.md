@@ -40,10 +40,20 @@ com.unvnews.unvnews/
 └── utils/              # Constants and Helper classes
 
 ```
+<h2 align="center">Screenshots</h2>
 
-## **📸 Screenshots**
-
-*(You can add your screenshot links here later)*
+<table align="center">
+  <tr>
+    <td align="center"><img src="home.png" width="200px"/><br/><b>Home Screen</b></td>
+    <td align="center"><img src="Category.png" width="200px"/><br/><b>Search News</b></td>
+    <td align="center"><img src="Read Later.png" width="200px"/><br/><b>Categories</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="webview.png" width="200px"/><br/><b>Article Detail</b></td>
+    <td align="center"><img src="Share.png" width="200px"/><br/><b>Web View</b></td>
+    <td align="center"><img src="Search.png" width="200px"/><br/><b>Settings</b></td>
+  </tr>
+</table>
 
 ## **⚙️ Getting Started**
 
