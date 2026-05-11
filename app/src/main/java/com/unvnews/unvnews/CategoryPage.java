@@ -3,9 +3,13 @@ package com.unvnews.unvnews;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.unvnews.unvnews.databinding.ActivityCategoryPageBinding;
 
@@ -19,12 +23,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
-public class CategoryPage extends AppCompatActivity {
+public class CategoryPage extends AppCompatActivity implements OnReadLaterClickedListener {
     ActivityCategoryPageBinding binding;
     Retrofit retrofit;
     MyAdapter adapter;
     List<Articles> articles;
+    ArticleViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,10 @@ public class CategoryPage extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String title = extra.getString("TITLE");
         articles = new ArrayList<>();
+        viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(ArticleViewModel.class);
+        adapter = new MyAdapter();
+        adapter.setActivityName("CategoryPage");
+        adapter.setOnReadLaterClickedListener(this);
         binding.categoryProgressBar.setVisibility(View.VISIBLE);
         binding.materialToolbarCategory.setTitle(title);
         binding.materialToolbarCategory.setNavigationOnClickListener(v -> finish());
@@ -85,6 +95,9 @@ public class CategoryPage extends AppCompatActivity {
                 call = apiInterface.getArticleByCategory(Constants.COUNTRY, "science", Constants.API_KEY);
                 break;
 
+            case "Read Later":
+                Timber.i("onCreate: ");
+
             default:
                 throw new IllegalStateException("Unexpected value: " + title);
         }
@@ -92,21 +105,40 @@ public class CategoryPage extends AppCompatActivity {
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
-                if (response.body() != null) {
-                    articles = response.body().getArticles();
-                }
-                adapter = new MyAdapter(CategoryPage.this, articles);
-                binding.categoryRecView.setAdapter(adapter);
                 binding.categoryProgressBar.setVisibility(View.INVISIBLE);
-                adapter.notifyDataSetChanged();
+
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Articles> remoteArticles = response.body().getArticles();
+
+                    if (remoteArticles != null && !remoteArticles.isEmpty()) {
+                        articles = remoteArticles; // Update the list
+                        adapter.setList(articles);
+                        binding.categoryRecView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(CategoryPage.this, "No news found in this category.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // This will tell you if it's still a 403 Forbidden
+                    Log.e("UNV_DEBUG", "Category Error: " + response.code());
+                    Toast.makeText(CategoryPage.this, "Server Error: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(@NotNull Call<News> call, @NotNull Throwable t) {
+                Toast.makeText(CategoryPage.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    @Override
+    public void onReadLaterClicked(int pos) {
+        Articles clickedArticle = articles.get(pos);
+        viewModel.insertArticle(clickedArticle);
+        Toast.makeText(CategoryPage.this, "Added Successfully", Toast.LENGTH_SHORT).show();
     }
 }

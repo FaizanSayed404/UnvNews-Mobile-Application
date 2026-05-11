@@ -12,6 +12,7 @@ import com.unvnews.unvnews.databinding.SplashScreenBinding;
 
 public class SplashScreen extends AppCompatActivity {
     SplashScreenBinding binding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,13 +20,13 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
         getWindow().getDecorView().setSystemUiVisibility(
 //                        View.SYSTEM_UI_FLAG_FULLSCREEN|
-                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
         binding.splashAnimation.playAnimation();
-        int SPLASH_SCREEN_TIME_OUT = 2000;
+        int SPLASH_SCREEN_TIME_OUT = 1500;
         new Handler().postDelayed(() -> {
-            Intent i=new Intent(SplashScreen.this,
-                    MainActivity.class);
+            Intent i = new Intent(SplashScreen.this,
+                    HomeActivity.class);
             startActivity(i);
             finish();
         }, SPLASH_SCREEN_TIME_OUT);

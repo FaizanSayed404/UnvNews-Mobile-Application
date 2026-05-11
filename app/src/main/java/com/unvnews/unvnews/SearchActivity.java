@@ -3,8 +3,12 @@ package com.unvnews.unvnews;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,18 +25,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements OnReadLaterClickedListener {
     ActivitySearchBinding binding;
     MyAdapter adapter;
     List<Articles> articles = new ArrayList<>();
     Retrofit retrofit;
     String query;
+    ArticleViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(ArticleViewModel.class);
+        adapter = new MyAdapter();
+        adapter.setActivityName("SearchActivity");
+        adapter.setOnReadLaterClickedListener(this);
         binding.toolbarSearch.setNavigationOnClickListener(v -> finish());
         binding.searchButton.setOnClickListener(v -> {
             query = binding.searchEditText.getText().toString();
@@ -70,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call<News> call, @NotNull Response<News> response) {
                 if (response.body() != null) {
                     articles = response.body().getArticles();
-                    adapter = new MyAdapter(SearchActivity.this, articles);
+                    adapter.setList(articles);
                     binding.searchRecyclerView.setAdapter(adapter);
                     binding.searchProgressBar.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
@@ -82,5 +91,12 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onReadLaterClicked(int pos) {
+        Articles clickedArticle = articles.get(pos);
+        viewModel.insertArticle(clickedArticle);
+        Toast.makeText(SearchActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
     }
 }

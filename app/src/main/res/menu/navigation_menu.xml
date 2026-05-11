@@ -27,6 +27,9 @@
             android:id="@+id/menuScience"
             android:icon="@drawable/science"
             android:title="Science" />
+        <item android:title="Read Later"
+            android:id="@+id/menuFav"
+            android:icon="@drawable/ic_read_later_menu"/>
         <item
             android:id="@+id/menuAbout"
             android:icon="@drawable/about"

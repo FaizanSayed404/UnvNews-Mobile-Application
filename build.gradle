@@ -2,24 +2,17 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0-beta04'
-        classpath 'com.google.gms:google-services:4.3.4'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // Keeps your build tools and Firebase services active
+        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-
-task clean(type: Delete) {
+// In Gradle 8+, the 'clean' task is often handled automatically,
+// but if you keep it, use this modernized syntax to avoid warnings:
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
