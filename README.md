@@ -73,4 +73,8 @@ Deploy to a physical device or emulator.
 
 ---
 
+# UnvNews App
+
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/FaizanSayed404/UnvNews-Mobile-Application/releases/download/v1.0.0/UNV-News-Latest.apk)
+
 **Developed by [Sayed Faizan Akhter**](https://www.google.com/search?q=https://github.com/FaizanSayed404)
